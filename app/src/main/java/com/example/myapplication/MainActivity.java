@@ -3,23 +3,15 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
-    ArrayList<String> items;
+    ArrayList<Student> students;
     MyAdapter adapter;
 
     @Override
@@ -28,25 +20,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
-        items = new ArrayList<>();
+        students = new ArrayList<>();
 
-        // Example data
-        for (int i = 1; i <= 20; i++) {
-            items.add("Item số " + i);
-        }
+        // Danh sách sinh viên
+        students.add(new Student("2311505312235", "Đoàn Xuân Song", "Công nghệ thông tin"));
+        students.add(new Student("2311505312236", "Nguyễn Văn An", "Khoa học máy tính"));
+        students.add(new Student("2311505312237", "Trần Thị Bình", "Kỹ thuật phần mềm"));
+        students.add(new Student("2311505312238", "Lê Hoàng Cường", "Hệ thống thông tin"));
+        students.add(new Student("2311505312239", "Phạm Thu Duyên", "Trí tuệ nhân tạo"));
+        students.add(new Student("2311505312240", "Hoàng Minh Đức", "An toàn thông tin"));
+        students.add(new Student("2311505312241", "Võ Thị Giang", "Công nghệ thông tin"));
+        students.add(new Student("2311505312242", "Đặng Văn Hùng", "Khoa học dữ liệu"));
+        students.add(new Student("2311505312243", "Bùi Thị Hương", "Kỹ thuật phần mềm"));
+        students.add(new Student("2311505312244", "Ngô Văn Khánh", "Mạng máy tính"));
+        students.add(new Student("2311505312245", "Trương Thị Lan", "Công nghệ thông tin"));
+        students.add(new Student("2311505312246", "Phan Văn Minh", "Hệ thống thông tin"));
+        students.add(new Student("2311505312247", "Dương Thị Nga", "Trí tuệ nhân tạo"));
+        students.add(new Student("2311505312248", "Lý Văn Phong", "An toàn thông tin"));
+        students.add(new Student("2311505312249", "Đinh Thị Quỳnh", "Khoa học máy tính"));
+        students.add(new Student("2311505312250", "Vũ Văn Sơn", "Kỹ thuật phần mềm"));
+        students.add(new Student("2311505312251", "Mai Thị Trang", "Công nghệ thông tin"));
+        students.add(new Student("2311505312252", "Hồ Văn Tú", "Khoa học dữ liệu"));
+        students.add(new Student("2311505312253", "Cao Thị Uyên", "Mạng máy tính"));
+        students.add(new Student("2311505312254", "Lưu Văn Vinh", "Hệ thống thông tin"));
 
-        adapter = new MyAdapter(items, this::showBottomPopup);
-
+        adapter = new MyAdapter(students, this::showBottomPopup);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
-    private void showBottomPopup(String item) {
+    private void showBottomPopup(Student student) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view = getLayoutInflater().inflate(R.layout.bottom_popup, null);
 
-        TextView txtDetail = view.findViewById(R.id.txtDetail);
-        txtDetail.setText(item);
+        TextView txtStudentId = view.findViewById(R.id.txtStudentId);
+        TextView txtStudentName = view.findViewById(R.id.txtStudentName);
+        TextView txtStudentMajor = view.findViewById(R.id.txtStudentMajor);
+
+        txtStudentId.setText(student.getId());
+        txtStudentName.setText(student.getName());
+        txtStudentMajor.setText(student.getMajor());
 
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
